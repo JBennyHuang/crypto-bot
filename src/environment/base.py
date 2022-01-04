@@ -1,7 +1,5 @@
-import firebase_admin
-
 from collections import defaultdict
-from typing import Callable, Dict
+from typing import Any, Callable, Dict
 
 from src.types.order import Order
 from src.types.position import Position
@@ -10,7 +8,7 @@ from src.types.position import Position
 class Environment:
     def __init__(self, security: str):
         self.security = security
-        self.events = defaultdict(list)
+        self.events: Dict[str, Any] = defaultdict(list)
 
     def bind(self, event: str,  callback: Callable[[float], None]):
         """subscribes to the environment

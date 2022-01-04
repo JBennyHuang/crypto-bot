@@ -8,25 +8,30 @@ class OrderSide(Enum):
     SELL = 1
 
 
+class OrderType(Enum):
+    STOP = 0
+    LIMIT = 1
+    MARKET = 2
+
+
+class OrderStatus(Enum):
+    OPEN = 0
+    PENDING = 1
+    ACTIVE = 2
+    DONE = 3
+    SETTLED = 4
+
+
 @dataclass
 class Order:
     order_id: str
     volume: float
     side: OrderSide
-
-
-@dataclass
-class StopOrder(Order):
-    stop_price: float
-    limit_price: float
-    triggered: bool = False
-
-
-@dataclass
-class LimitOrder(Order):
-    limit_price: float
-
-
-@dataclass
-class MarketOrder(Order):
-    pass
+    type: OrderType
+    status: OrderStatus
+    limit_price: Union[float, None] = None
+    stop_price: Union[float, None] = None
+    # fill_fees: Union[float, None] = None
+    # filled_volume: Union[float, None] = None
+    timestamp: Union[int, None] = None
+    executed_value: Union[float, None] = None
